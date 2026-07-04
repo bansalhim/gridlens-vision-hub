@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 
-export const API_BASE_URL = "https://gridlens-backend-my.onrender.com";
+export const API_BASE_URL = "https://himan123-gridlens-ai-backend.hf.space";
 export type Detection = {
   label: string;
   confidence: number;
