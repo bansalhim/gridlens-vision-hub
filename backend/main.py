@@ -2,6 +2,7 @@ from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
 from datetime import datetime
+from database import init_db, save_violation, get_all_violations
 from io import BytesIO
 import base64
 import os
@@ -12,6 +13,9 @@ from PIL import Image
 from ultralytics import YOLO
 
 app = FastAPI(title="GridLens AI Backend")
+@app.on_event("startup")
+def startup_event():
+    init_db()
 
 app.add_middleware(
     CORSMiddleware,
@@ -24,7 +28,7 @@ app.add_middleware(
 MODEL_PATH = "yolov8n.pt"
 model = YOLO(MODEL_PATH)
 
-SAVED_RECORDS = []
+#SAVED_RECORDS = []
 
 
 def encode_image_to_base64(image_rgb: np.ndarray) -> str:
@@ -343,11 +347,7 @@ async def analyze_image(
     )
 
     for violation in violations:
-        new_record = {
-            "id": len(SAVED_RECORDS) + 1,
-            **violation,
-        }
-        SAVED_RECORDS.append(new_record)
+        save_violation(violation)
 
     return {
         "message": "analysis_completed",
@@ -360,4 +360,4 @@ async def analyze_image(
 
 @app.get("/records")
 def get_records():
-    return SAVED_RECORDS
+    return get_all_violations()
