@@ -67,43 +67,55 @@
 
 :root {
   --radius: 0.625rem;
-  /* GridLens AI — smart-city dark dashboard */
-  --background: oklch(0.18 0.03 250);
-  --foreground: oklch(0.97 0.01 240);
-  --card: oklch(0.23 0.035 250);
-  --card-foreground: oklch(0.97 0.01 240);
-  --popover: oklch(0.23 0.035 250);
-  --popover-foreground: oklch(0.97 0.01 240);
-  --primary: oklch(0.72 0.17 235);
-  --primary-foreground: oklch(0.15 0.03 250);
-  --secondary: oklch(0.3 0.04 250);
-  --secondary-foreground: oklch(0.97 0.01 240);
-  --muted: oklch(0.28 0.03 250);
-  --muted-foreground: oklch(0.72 0.02 245);
-  --accent: oklch(0.78 0.17 165);
-  --accent-foreground: oklch(0.15 0.03 250);
-  --destructive: oklch(0.65 0.22 25);
-  --destructive-foreground: oklch(0.98 0.01 240);
-  --success: oklch(0.72 0.17 155);
-  --success-foreground: oklch(0.15 0.03 250);
-  --warning: oklch(0.8 0.16 75);
-  --warning-foreground: oklch(0.15 0.03 250);
-  --border: oklch(0.32 0.03 250);
-  --input: oklch(0.3 0.03 250);
-  --ring: oklch(0.72 0.17 235);
-  --chart-1: oklch(0.72 0.17 235);
-  --chart-2: oklch(0.78 0.17 165);
-  --chart-3: oklch(0.8 0.16 75);
-  --chart-4: oklch(0.7 0.2 320);
-  --chart-5: oklch(0.65 0.22 25);
-  --sidebar: oklch(0.16 0.03 250);
-  --sidebar-foreground: oklch(0.95 0.01 240);
-  --sidebar-primary: oklch(0.72 0.17 235);
-  --sidebar-primary-foreground: oklch(0.15 0.03 250);
-  --sidebar-accent: oklch(0.26 0.04 250);
-  --sidebar-accent-foreground: oklch(0.97 0.01 240);
-  --sidebar-border: oklch(0.28 0.03 250);
-  --sidebar-ring: oklch(0.72 0.17 235);
+  /* GridLens AI — light smart-city control-center */
+  --background: oklch(0.985 0.005 240);
+  --foreground: oklch(0.22 0.04 250);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.04 250);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.04 250);
+  --primary: oklch(0.55 0.19 250);          /* signal blue */
+  --primary-foreground: oklch(0.99 0.005 240);
+  --secondary: oklch(0.96 0.012 240);
+  --secondary-foreground: oklch(0.28 0.05 250);
+  --muted: oklch(0.965 0.01 240);
+  --muted-foreground: oklch(0.5 0.03 250);
+  --accent: oklch(0.72 0.16 195);           /* cyan */
+  --accent-foreground: oklch(0.18 0.05 240);
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: oklch(0.99 0.005 240);
+  --success: oklch(0.66 0.16 155);          /* traffic green */
+  --success-foreground: oklch(0.99 0.005 240);
+  --warning: oklch(0.78 0.16 75);           /* amber */
+  --warning-foreground: oklch(0.2 0.05 60);
+  --border: oklch(0.92 0.01 240);
+  --input: oklch(0.93 0.01 240);
+  --ring: oklch(0.55 0.19 250);
+  --chart-1: oklch(0.55 0.19 250);
+  --chart-2: oklch(0.72 0.16 195);
+  --chart-3: oklch(0.66 0.16 155);
+  --chart-4: oklch(0.78 0.16 75);
+  --chart-5: oklch(0.6 0.22 25);
+  --sidebar: oklch(0.99 0.005 240);
+  --sidebar-foreground: oklch(0.28 0.04 250);
+  --sidebar-primary: oklch(0.55 0.19 250);
+  --sidebar-primary-foreground: oklch(0.99 0.005 240);
+  --sidebar-accent: oklch(0.96 0.012 240);
+  --sidebar-accent-foreground: oklch(0.28 0.05 250);
+  --sidebar-border: oklch(0.92 0.01 240);
+  --sidebar-ring: oklch(0.55 0.19 250);
+
+  /* Bespoke tokens for the smart-city surface */
+  --grid-line: oklch(0.55 0.19 250 / 0.08);
+  --glow-blue: oklch(0.7 0.19 250 / 0.35);
+  --glow-cyan: oklch(0.78 0.15 195 / 0.35);
+  --glow-green: oklch(0.72 0.16 155 / 0.28);
+  --shadow-soft: 0 1px 2px oklch(0.4 0.06 250 / 0.04),
+    0 8px 24px -12px oklch(0.4 0.1 250 / 0.12);
+  --shadow-lift: 0 1px 2px oklch(0.4 0.06 250 / 0.05),
+    0 20px 40px -20px oklch(0.4 0.12 250 / 0.18);
+  --gradient-primary: linear-gradient(135deg,
+    oklch(0.55 0.19 250) 0%, oklch(0.62 0.17 220) 50%, oklch(0.72 0.15 195) 100%);
 }
 
 .dark {
@@ -148,6 +160,30 @@
 
   body {
     background-color: var(--color-background);
+    background-image:
+      radial-gradient(1200px 600px at 10% -10%, var(--glow-blue), transparent 60%),
+      radial-gradient(1000px 500px at 100% 0%, var(--glow-cyan), transparent 60%),
+      radial-gradient(800px 500px at 50% 100%, var(--glow-green), transparent 65%);
+    background-attachment: fixed;
     color: var(--color-foreground);
   }
+}
+
+/* Smart-city grid pattern — apply as an overlay layer */
+@utility bg-city-grid {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+@utility glass-card {
+  background-color: color-mix(in oklab, var(--color-card) 78%, transparent);
+  backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid color-mix(in oklab, var(--color-border) 70%, transparent);
+  box-shadow: var(--shadow-soft);
+}
+
+@utility gradient-primary {
+  background-image: var(--gradient-primary);
 }
