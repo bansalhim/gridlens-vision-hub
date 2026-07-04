@@ -22,7 +22,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { fetchRecords, statusVariant, type SavedRecord } from "@/lib/gridlens";
+import { fetchRecords, type SavedRecord } from "@/lib/gridlens";
+import { ViolationBadge, StatusBadge } from "@/components/violation-badges";
 
 export const Route = createFileRoute("/records")({
   head: () => ({
@@ -109,7 +110,7 @@ function Records() {
         </div>
       </div>
 
-      <Card>
+      <Card className="glass-card">
         <CardHeader>
           <CardTitle>Filters</CardTitle>
           <CardDescription>Search and narrow down archived records.</CardDescription>
@@ -155,7 +156,7 @@ function Records() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="glass-card">
         <CardHeader>
           <CardTitle>
             Records{" "}
@@ -195,20 +196,20 @@ function Records() {
                       <TableCell className="whitespace-nowrap font-mono text-xs text-muted-foreground">
                         {r.timestamp}
                       </TableCell>
-                      <TableCell className="font-medium">{r.violation_type}</TableCell>
+                      <TableCell><ViolationBadge type={r.violation_type} /></TableCell>
                       <TableCell className="font-mono text-xs">
                         {(r.confidence * 100).toFixed(0)}%
                       </TableCell>
                       <TableCell className="font-mono text-xs">{r.vehicle_id}</TableCell>
-                      <TableCell className="font-mono text-xs tracking-wider">
-                        {r.number_plate}
+                      <TableCell>
+                        <span className="rounded-md border border-primary/25 bg-primary/5 px-2 py-0.5 font-mono text-xs font-semibold tracking-widest text-primary">
+                          {r.number_plate}
+                        </span>
                       </TableCell>
                       <TableCell className="max-w-xs text-xs text-muted-foreground">
                         {r.evidence}
                       </TableCell>
-                      <TableCell>
-                        <Badge variant={statusVariant(r.status)}>{r.status}</Badge>
-                      </TableCell>
+                      <TableCell><StatusBadge status={r.status} /></TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
