@@ -198,7 +198,7 @@ export function AppSidebar() {
               <span className="h-1.5 w-1.5 rounded-full bg-success" />
               <span className="font-medium">System healthy</span>
             </div>
-            Backend <span className="font-mono">localhost:8000</span>
+            Backend <span className="font-mono">gridlens-backend-my.onrender.com</span>
           </div>
         )}
       </SidebarFooter>

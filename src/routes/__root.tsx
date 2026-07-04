@@ -214,7 +214,7 @@ function TopNav() {
           </div>
           <div className="hidden items-center gap-1.5 rounded-full border border-border/60 bg-card/70 px-3 py-1 text-xs text-muted-foreground backdrop-blur lg:flex">
             <ShieldCheck className="h-3.5 w-3.5 text-primary" />
-            API <span className="font-mono text-foreground/70">localhost:8000</span>
+            API <span className="font-mono text-foreground/70">gridlens-backend-my.onrender.com</span>
           </div>
         </div>
       </div>
@@ -247,7 +247,7 @@ function SiteFooter() {
         <div>
           © {new Date().getFullYear()} GridLens AI · Smart City Traffic Intelligence
         </div>
-        <div className="font-mono">v1.0 · Backend http://localhost:8000</div>
+       <div className="font-mono">v1.0 · Backend gridlens-backend-my.onrender.com</div>
       </div>
     </footer>
   );

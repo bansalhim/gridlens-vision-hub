@@ -102,9 +102,9 @@ function About() {
           <p className="mt-4 text-xs text-muted-foreground">
             Frontend renders detections and evidence returned by the FastAPI
             backend at{" "}
-            <span className="rounded bg-muted px-1.5 py-0.5 font-mono">
-              http://localhost:8000
-            </span>
+           <span className="rounded bg-muted px-1.5 py-0.5 font-mono">
+  https://gridlens-backend-my.onrender.com
+</span>
             . Demo data is shown automatically when the backend is unreachable.
           </p>
         </CardContent>
