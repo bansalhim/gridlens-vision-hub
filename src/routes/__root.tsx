@@ -7,10 +7,15 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, useCallback, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { SettingsContext, defaultSettings, type Settings } from "@/lib/gridlens";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/AppSidebar";
+import { Toaster } from "@/components/ui/sonner";
+import { Radar } from "lucide-react";
 
 function NotFoundComponent() {
   return (
@@ -77,14 +82,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "GridLens AI — Automated Traffic Violation Detection" },
+      {
+        name: "description",
+        content:
+          "GridLens AI detects road users, identifies traffic violations, extracts number plates and generates evidence reports from uploaded traffic imagery.",
+      },
+      { name: "author", content: "GridLens AI" },
+      { property: "og:title", content: "GridLens AI — Traffic Violation Detection" },
+      {
+        property: "og:description",
+        content:
+          "Automated traffic violation detection and evidence generation dashboard.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
@@ -116,11 +128,52 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const [settings, setSettingsState] = useState<Settings>(defaultSettings);
+  const setSettings = useCallback(
+    (patch: Partial<Settings>) =>
+      setSettingsState((prev) => ({ ...prev, ...patch })),
+    [],
+  );
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <SettingsContext.Provider value={{ settings, setSettings }}>
+        <SidebarProvider>
+          <div className="flex min-h-screen w-full bg-background text-foreground">
+            <AppSidebar />
+            <div className="flex flex-1 flex-col">
+              <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border/60 bg-background/80 px-4 backdrop-blur">
+                <SidebarTrigger className="text-muted-foreground hover:text-foreground" />
+                <div className="flex items-center gap-2">
+                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary/15 text-primary ring-1 ring-primary/30">
+                    <Radar className="h-4 w-4" />
+                  </div>
+                  <div className="leading-tight">
+                    <div className="text-sm font-semibold tracking-tight">
+                      GridLens AI
+                    </div>
+                    <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                      Traffic Violation Intelligence
+                    </div>
+                  </div>
+                </div>
+                <div className="ml-auto flex items-center gap-2 text-xs text-muted-foreground">
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+                  </span>
+                  Live monitoring
+                </div>
+              </header>
+              <main className="flex-1">
+                {/* Required: nested routes render here. */}
+                <Outlet />
+              </main>
+            </div>
+          </div>
+          <Toaster />
+        </SidebarProvider>
+      </SettingsContext.Provider>
     </QueryClientProvider>
   );
 }
